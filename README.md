@@ -4,13 +4,16 @@ shunt
 A tiny automatic bash installer for Windows.
 
  1. [Dowload](https://github.com/alganet/shunt/archive/master.zip) and extract the zip.
+
     ![Download Screen](http://i.imgur.com/uuUUFjf.png)
+
  2. Execute the `shunt.bat` file.
+
  	![shunt donwloading dependencies...](http://i.imgur.com/y5k3JxA.png)
 
 ---
 
-<center>![bash!](http://i.imgur.com/KlAY4VN.png)</center>
+![bash!](http://i.imgur.com/KlAY4VN.png)
 
 A console with bash will appear after all dependencies are
 automatically downloaded. It supports:
