@@ -1,3 +1,3 @@
-@echo off
+echo off
 
 cscript /nologo ".\shunt.js"

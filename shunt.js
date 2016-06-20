@@ -9,11 +9,10 @@ var downloadDestination = fileSystem.getAbsolutePathName(".\\.mingw\\");
 if (fileSystem.folderExists(downloadDestination)) {
     windowsCmd.Run("cmd /C \"" + downloadDestination  + "\\msys.bat --mintty\"", 1, true);
     WScript.quit();
-} 
-
+}
 
 WScript.Echo("Downloading...");
-var httpConnection = new ActiveXObject("WinHttp.WinHttpRequest.5.1"); 
+var httpConnection = new ActiveXObject("WinHttp.WinHttpRequest.5.1");
 httpConnection.open("GET", downloadTarget, false);
 httpConnection.send();
 
@@ -39,26 +38,27 @@ if (httpConnection.status = 200) {
     var windowsApplication = new ActiveXObject("Shell.Application");
     var compressedFiles = windowsApplication.nameSpace(fileSystem.getFile(temporaryDestination).path).items();
     windowsApplication.nameSpace(fileSystem.getFolder(downloadDestination).path).copyHere(compressedFiles, 4 + 16 + 1024);
+    var mingwGet = downloadDestination + "\\bin\\mingw-get.exe"
 
     WScript.Echo("Configuring...");
     var profileCmd = windowsCmd.Exec("cmd /C \"copy .\\profile.xml.dist " + downloadDestination  + "\\var\\lib\\mingw-get\\data\\profile.xml\"");
 
     WScript.Echo("Updating Package List...");
-    var mingwCmd = windowsCmd.Exec("cmd /C \"" + downloadDestination  + "\\bin\\mingw-get.exe update 2>&1\"");
+    var mingwCmd = windowsCmd.Exec("cmd /C \"" + mingwGet  + " update 2>&1\"");
 
     while (mingwCmd.status == 0) {
         WScript.Echo(mingwCmd.stdOut.readLine());
     }
 
     WScript.Echo("Installing Base System...");
-    var mingwCmd = windowsCmd.Exec("cmd /C \"" + downloadDestination  + "\\bin\\mingw-get.exe install msys-base 2>&1\"");
+    var mingwCmd = windowsCmd.Exec("cmd /C \"" + mingwGet  + " install msys-base 2>&1\"");
 
     while (mingwCmd.status == 0) {
         WScript.Echo(mingwCmd.stdOut.readLine());
     }
 
     WScript.Echo("Installing Console...");
-    var mingwCmd = windowsCmd.Exec("cmd /C \"" + downloadDestination  + "\\bin\\mingw-get.exe install msys-mintty 2>&1\"");
+    var mingwCmd = windowsCmd.Exec("cmd /C \"" + mingwGet  + " install msys-mintty 2>&1\"");
 
     while (mingwCmd.status == 0) {
         WScript.Echo(mingwCmd.stdOut.readLine());
